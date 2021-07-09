@@ -12,31 +12,37 @@
         android:layout_height="wrap_content"
         android:onClick="registerUserOnClick"
         android:text="Merchant Registration"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081" />
 
     <Button
         android:id="@+id/ListUsers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
         android:onClick="listUsers"
         android:text="List all Merchants"
-        app:layout_constraintBottom_toTopOf="@+id/DeleteUser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addUser" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/addUser"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="@+id/addUser"
+        app:layout_constraintTop_toBottomOf="@+id/addUser"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/DeleteUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="213dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="396dp"
         android:onClick="deleteUser"
         android:text="Delete Merchant"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ListUsers"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="@+id/ListUsers" />
 
     <Button
         android:id="@+id/button4"
@@ -44,9 +50,11 @@
         android:layout_height="wrap_content"
         android:onClick="addBankToUser"
         android:text="Add bank to Merchant"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/DeleteUser"
+        app:layout_constraintStart_toStartOf="@+id/DeleteUser"
+        app:layout_constraintTop_toBottomOf="@+id/DeleteUser"
+        app:layout_constraintVertical_bias="0.102" />
 
     <Button
         android:id="@+id/button5"
@@ -54,9 +62,12 @@
         android:layout_height="wrap_content"
         android:onClick="removeBankFromUser"
         android:text="Remove bank from Merchant"
-        app:layout_constraintBottom_toTopOf="@+id/ActiveDeactiveBanks"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/button4"
+        app:layout_constraintVertical_bias="0.147" />
 
     <Button
         android:id="@+id/ActiveDeactiveBanks"
@@ -65,6 +76,9 @@
         android:onClick="activateOrDeactivateBanksFromUser"
         android:text="Activate/Deactivate Banks"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/button5"
+        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintStart_toStartOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintVertical_bias="0.272" />
 </androidx.constraintlayout.widget.ConstraintLayout>

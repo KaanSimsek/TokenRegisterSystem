@@ -17,6 +17,9 @@ val col_TerminalId="TerminalID"
 val col_DeviceType="DeviceType"
 val col_trID="TrID"
 val col_registerDate="RegisterDate"
+val col_bankName="BankList"
+val col_bankID="BankID"
+val col_bankActiveOrNot="BankActiveOrNot"
 
 class DataBaseHelper(var context: Context):SQLiteOpenHelper(context, database_name,null,1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -80,4 +83,28 @@ class DataBaseHelper(var context: Context):SQLiteOpenHelper(context, database_na
         db.close()
         return Integer.parseInt("$success")!=-1
     }
+
+    fun addBankToUser(userTerminalID : String,bankList : ArrayList<Bank>){
+        var db = this.writableDatabase
+        val cv= ContentValues()
+        var query = "Select * from " + user_table
+        var res = db.rawQuery(query,null)
+        var merchant=Merchant()
+
+        if (res.moveToFirst()){
+            do {
+                if(res.getString(res.getColumnIndex(col_TerminalId)).equals(userTerminalID)){
+                    merchant.id = res.getString(res.getColumnIndex(col_id))
+                    merchant.name=res.getString(res.getColumnIndex(col_name))
+                    merchant.password=res.getString(res.getColumnIndex(col_password))
+                    merchant.terminalID=res.getString(res.getColumnIndex(col_TerminalId))
+                    merchant.deviceType=res.getString(res.getColumnIndex(col_DeviceType))
+                    merchant.trID=res.getString(res.getColumnIndex(col_trID))
+                    merchant.registerDate=res.getString(res.getColumnIndex(col_registerDate))
+                }
+            }while (res.moveToNext())
+        }
+
+    }
+
 }

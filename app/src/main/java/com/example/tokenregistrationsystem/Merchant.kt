@@ -8,7 +8,6 @@ class Merchant {
     lateinit var deviceType : String
     lateinit var registerDate : String
     lateinit var id : String
-    //var id : Int = 0
 
     constructor(name:String,password:String,terminalID : String,trID : String,deviceType : String,registerDate : String ){
         this.name=name
