@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.tokenregistrationsystem.databinding.ActivityAdduserBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
@@ -15,10 +16,11 @@ import kotlin.collections.ArrayList
 
 
 class AddUserActivity : AppCompatActivity() {
-    lateinit var userName : EditText
+    /*lateinit var userName : EditText
     lateinit var userPassword : EditText
     lateinit var userTerminalID : EditText
-    lateinit var userTC : EditText
+    lateinit var userTC : EditText*/
+    private lateinit var binding : ActivityAdduserBinding
     val specialChars= ArrayList<Char>()
     val context=this
     var db=DataBaseHelper(context)
@@ -26,13 +28,38 @@ class AddUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adduser)
-        userName = findViewById<EditText>(R.id.userName)
+        /*userName = findViewById<EditText>(R.id.userName)
         userPassword = findViewById<EditText>(R.id.userPassword)
         userTerminalID = findViewById<EditText>(R.id.userTerminalID)
-        userTC = findViewById<EditText>(R.id.userTC)
+        userTC = findViewById<EditText>(R.id.userTC)*/
+        binding=ActivityAdduserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.backFromUAdd.setOnClickListener {
+            val intent = Intent(this,AdminActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.add.setOnClickListener {
+            var nameOfUser = binding.userName.text.toString()
+            var passwordOfUser = binding.userPassword.text.toString()
+            var terminalIDOfUser = binding.userTerminalID.text.toString()
+            var tcOfUser = binding.userTC.text.toString()
+
+            val date = Calendar.getInstance().time
+            val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
+            val formatedDate = formatter.format(date)
+
+            if(checkPassword(passwordOfUser) && checkTerminal(terminalIDOfUser) && !checkDeviceType(terminalIDOfUser).equals("False") && nameOfUser.length!=0 && tcOfUser.length!=0){
+                var merchant = Merchant(nameOfUser,passwordOfUser,terminalIDOfUser,tcOfUser,checkDeviceType(terminalIDOfUser),formatedDate)
+                db.insertData(merchant)
+            }
+            else{
+                Toast.makeText(applicationContext,"Unsuccess",Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
-    fun AddUserOnClick(view: View) {
+    /*fun AddUserOnClick(view: View) {
         //Toast.makeText(this, userName.text.toString() +" "+userPassword.text.toString(), Toast.LENGTH_SHORT).show()
         var nameOfUser = userName.text.toString()
         var passwordOfUser = userPassword.text.toString()
@@ -50,12 +77,7 @@ class AddUserActivity : AppCompatActivity() {
         else{
             Toast.makeText(applicationContext,"Unsuccess",Toast.LENGTH_LONG).show()
         }
-    }
-
-    fun BackFromAddOnClick(view: View) {
-        val intent = Intent(this,AdminActivity::class.java)
-        startActivity(intent)
-    }
+    }*/
 
     fun checkPassword(password : String):Boolean{
         specialCharInit()

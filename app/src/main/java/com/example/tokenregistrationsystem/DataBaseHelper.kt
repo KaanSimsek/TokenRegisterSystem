@@ -298,5 +298,48 @@ class DataBaseHelper(var context: Context):SQLiteOpenHelper(context, database_na
         else
             Toast.makeText(context,"ID is wrong",Toast.LENGTH_LONG).show()
     }
+    fun checkWhetherUserInDatabase(id:String,password:String) : Boolean{
+        var db = this.readableDatabase
 
+        var query = "Select * from " + user_table
+        var res = db.rawQuery(query, null)
+        if (res.moveToFirst()) {
+            do {
+                if(res.getString(res.getColumnIndex(col_TerminalId)).equals(id)) {
+                    if (res.getString(res.getColumnIndex(col_password)).equals(password)) {
+                        db.close()
+                        return true
+                    }
+                }
+            } while (res.moveToNext())
+        }
+        db.close()
+        return false
+    }
+
+    fun returnListOfUserData(id: String,password: String) : ArrayList<String>{
+        var arr= ArrayList<String>()
+        var db = this.readableDatabase
+        var query = "Select * from " + user_table
+        var res = db.rawQuery(query, null)
+        if (res.moveToFirst()) {
+            do {
+                if(res.getString(res.getColumnIndex(col_TerminalId)).equals(id)) {
+                    if (res.getString(res.getColumnIndex(col_password)).equals(password)){
+                        arr.add(res.getString(res.getColumnIndex(col_id)))
+                        arr.add(res.getString(res.getColumnIndex(col_name)))
+                        arr.add(res.getString(res.getColumnIndex(col_password)))
+                        arr.add(res.getString(res.getColumnIndex(col_TerminalId)))
+                        arr.add(res.getString(res.getColumnIndex(col_DeviceType)))
+                        arr.add(res.getString(res.getColumnIndex(col_trID)))
+                        arr.add(res.getString(res.getColumnIndex(col_registerDate)))
+                        arr.add(res.getString(res.getColumnIndex(col_bankName)))
+                        arr.add(res.getString(res.getColumnIndex(col_bankActiveOrNot)))
+                    }
+                }
+            } while (res.moveToNext())
+        }
+        db.close()
+        return arr
+    }
 }

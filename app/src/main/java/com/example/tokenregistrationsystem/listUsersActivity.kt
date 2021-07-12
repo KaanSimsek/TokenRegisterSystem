@@ -6,26 +6,32 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import com.example.tokenregistrationsystem.databinding.ActivityListUsersBinding
 import java.util.ArrayList
 
 class listUsersActivity : AppCompatActivity() {
 
-    lateinit var listView :ListView
+    private lateinit var binding: ActivityListUsersBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_users)
-        listView=findViewById(R.id.usersList)
+        binding=ActivityListUsersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val context=this
         var db=DataBaseHelper(context)
         val list:MutableList<Merchant> = db.readData()
         val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,userListToStringList(list))
-        listView.adapter=adapter
+
+        binding.usersList.adapter=adapter
+
+        binding.backButtonForList.setOnClickListener {
+            val intent = Intent(this,AdminActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
-    fun backForList(view: View) {
-        val intent = Intent(this,AdminActivity::class.java)
-        startActivity(intent)
-    }
 
     fun userListToStringList(list: MutableList<Merchant>):ArrayList<String>{
         var arr:ArrayList<String> = ArrayList()

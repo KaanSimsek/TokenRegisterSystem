@@ -27,7 +27,8 @@ class addBankToUser : AppCompatActivity() {
             startActivity(intent)
         }
         binding.buttonForAddBank.setOnClickListener {
-            db.addBankToUser(binding.getTerminalIdOfUser.text.toString(),Bank(bankName,bankID))
+
+            db.addBankToUser(binding.getTerminalIdOfUser.text.toString()!!,Bank(bankName,bankID)!!)
         }
         binding.yapiKrediAddRadio.setOnClickListener {
             bankName = "Yapıkredi"

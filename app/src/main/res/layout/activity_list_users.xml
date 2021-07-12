@@ -10,7 +10,6 @@
         android:id="@+id/backButtonForList"
         android:layout_width="113dp"
         android:layout_height="58dp"
-        android:onClick="backForList"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

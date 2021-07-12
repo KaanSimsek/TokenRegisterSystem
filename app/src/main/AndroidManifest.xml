@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TokenRegistrationSystem">
-        <activity android:name=".ActiveDeactiveBanksActivity"></activity>
+        <activity android:name=".userDataActivity"></activity>
+        <activity android:name=".ActiveDeactiveBanksActivity" />
         <activity android:name=".deleteBankFromUser" />
         <activity android:name=".addBankToUser" />
         <activity android:name=".listUsersActivity" />
