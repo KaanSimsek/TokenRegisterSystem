@@ -1,14 +1,18 @@
 package com.example.tokenregistrationsystem
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+
 
 class AdminActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin)
+        val i = this.intent
+        var arr=ArrayList<Bank>()
+
     }
 
     fun registerUserOnClick(view: View) {
@@ -18,19 +22,28 @@ class AdminActivity : AppCompatActivity() {
     }
 
     fun listUsers(view: View) {
-        val intent = Intent(this,listUsersActivity::class.java)
+        val intent = Intent(this, listUsersActivity::class.java)
         startActivity(intent)
 
     }
 
     fun deleteUser(view: View) {
-        val intent = Intent(this,DeleteUserActivity::class.java)
+        val intent = Intent(this, DeleteUserActivity::class.java)
         startActivity(intent)
     }
 
-    fun addBankToUser(view: View) {}
+    fun addBankToUser(view: View) {
+        val intent =  Intent(this, addBankToUser::class.java)
+        startActivity(intent)
+    }
 
-    fun removeBankFromUser(view: View) {}
+    fun removeBankFromUser(view: View) {
+        val intent = Intent(this,deleteBankFromUser::class.java)
+        startActivity(intent)
+    }
 
-    fun activateOrDeactivateBanksFromUser(view: View) {}
+    fun activateOrDeactivateBanksFromUser(view: View) {
+        val intent = Intent(this,ActiveDeactiveBanksActivity::class.java)
+        startActivity(intent)
+    }
 }

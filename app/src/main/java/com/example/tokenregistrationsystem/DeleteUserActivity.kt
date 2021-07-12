@@ -23,8 +23,11 @@ class DeleteUserActivity : AppCompatActivity() {
     }
     fun deleteUserClick(view: View) {
         var bol =db.deleteData(terminalIdText.text.toString())
-        if(bol){
+        if(!bol){
             Toast.makeText(context,"There is no merchant whith this terminal id",Toast.LENGTH_LONG).show()
+        }
+        else{
+            Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
         }
     }
 }

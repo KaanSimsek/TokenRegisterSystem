@@ -43,7 +43,7 @@ class AddUserActivity : AppCompatActivity() {
         val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
         val formatedDate = formatter.format(date)
 
-        if(checkPassword(passwordOfUser) && checkTerminal(terminalIDOfUser) && !checkDeviceType(terminalIDOfUser).equals("False") && nameOfUser!=null && tcOfUser!=null){
+        if(checkPassword(passwordOfUser) && checkTerminal(terminalIDOfUser) && !checkDeviceType(terminalIDOfUser).equals("False") && nameOfUser.length!=0 && tcOfUser.length!=0){
             var merchant = Merchant(nameOfUser,passwordOfUser,terminalIDOfUser,tcOfUser,checkDeviceType(terminalIDOfUser),formatedDate)
             db.insertData(merchant)
         }
@@ -74,10 +74,7 @@ class AddUserActivity : AppCompatActivity() {
                 else if(specialChars.contains(password.get(i)))
                     special=1
             }
-            if(upper * lower * number * special==1)
-                return true
-            else
-                return false
+            return upper * lower * number * special==1
         }
         else
             return false
