@@ -133,26 +133,27 @@ class DataBaseHelper(var context: Context):SQLiteOpenHelper(context, database_na
             Toast.makeText(context,"This bank is in users list thus you can not add it.",Toast.LENGTH_LONG).show()
             return
         }
-        if(userBankList.size==1) {
-            bankUser += bank.bankName
-            userBankActive +="false"
-        }
         else {
-            bankUser += "," + bank.bankName
-            userBankActive +=",false"
+            if (userBankList.size == 0) {
+                bankUser += bank.bankName
+                userBankActive += "false"
+            } else {
+                bankUser += "," + bank.bankName
+                userBankActive += ",false"
+            }
+            cv.put(col_name, merchant.name)
+            cv.put(col_password, merchant.password)
+            cv.put(col_TerminalId, merchant.terminalID)
+            cv.put(col_DeviceType, merchant.deviceType)
+            cv.put(col_trID, merchant.trID)
+            cv.put(col_registerDate, merchant.registerDate)
+            cv.put(col_bankName, bankUser)
+            cv.put(col_bankActiveOrNot, userBankActive)
+            val success = db.update(user_table, cv, col_TerminalId + "=?", arrayOf(userTerminalID)).toLong()
+            db.close()
+            if (Integer.parseInt("$success") == -1)
+                Toast.makeText(context, "Merchant ID is wrong", Toast.LENGTH_LONG).show()
         }
-        cv.put(col_name, merchant.name)
-        cv.put(col_password, merchant.password)
-        cv.put(col_TerminalId, merchant.terminalID)
-        cv.put(col_DeviceType, merchant.deviceType)
-        cv.put(col_trID, merchant.trID)
-        cv.put(col_registerDate, merchant.registerDate)
-        cv.put(col_bankName,bankUser)
-        cv.put(col_bankActiveOrNot,userBankActive)
-        val success=db.update(user_table,cv, col_TerminalId + "=?", arrayOf(userTerminalID)).toLong()
-        db.close()
-        if( Integer.parseInt("$success") ==-1)
-            Toast.makeText(context,"Merchant ID is wrong",Toast.LENGTH_LONG).show()
     }
 
     fun arrayToArrayList(array : List<String> ) : ArrayList<String>{
@@ -264,12 +265,9 @@ class DataBaseHelper(var context: Context):SQLiteOpenHelper(context, database_na
                     if (userBankActiveList.get(userBankList.indexOf(banks.get(i))).equals("false"))
                         userBankActiveList.set(userBankList.indexOf(banks.get(i)), "true")
                     else {
-                        Log.v("Info", "This bank is already active")
                         Toast.makeText(context, "This bank is already active", Toast.LENGTH_LONG).show()
                     }
                 }
-                else
-                    Toast.makeText(context, "This bank is not in user list", Toast.LENGTH_LONG).show()
             }
         }
         else{
@@ -280,8 +278,7 @@ class DataBaseHelper(var context: Context):SQLiteOpenHelper(context, database_na
                     else
                         Toast.makeText(context, "This bank is already deactive", Toast.LENGTH_LONG).show()
                 }
-                else
-                    Toast.makeText(context, "This bank is not in user list", Toast.LENGTH_LONG).show()
+
             }
         }
 
@@ -291,7 +288,7 @@ class DataBaseHelper(var context: Context):SQLiteOpenHelper(context, database_na
         cv.put(col_DeviceType, merchant.deviceType)
         cv.put(col_trID, merchant.trID)
         cv.put(col_registerDate, merchant.registerDate)
-        cv.put(col_bankName,convertListToStr(userBankList))
+        cv.put(col_bankName,bankUser)
         cv.put(col_bankActiveOrNot,convertListToStr(userBankActiveList))
 
         val success=db.update(user_table,cv, col_TerminalId + "=?", arrayOf(userTerminalID)).toLong()
